@@ -18,6 +18,7 @@ namespace Earlz.MonoSump
 		/// </summary>
 		/// <param name="value">Value.</param>
 		void WriteByte(byte value);
+		void WriteBytes(byte[] values);
 		/// <summary>
 		/// Reads a byte when available. Blocks until it times out
 		/// </summary>

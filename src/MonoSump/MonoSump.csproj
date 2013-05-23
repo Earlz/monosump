@@ -42,6 +42,8 @@
     <Compile Include="ISumpCommander.cs" />
     <Compile Include="TriggerConfiguration.cs" />
     <Compile Include="Serial.cs" />
+    <Compile Include="ArgumentHandler.cs" />
+    <Compile Include="Config.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

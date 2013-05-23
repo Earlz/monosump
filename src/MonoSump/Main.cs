@@ -7,8 +7,9 @@ namespace Earlz.MonoSump
 	{
 		public static void Main(string[] args)
 		{
-			var p=new SerialPort();
 			Console.WriteLine("Hello World!");
+
 		}
+
 	}
 }
