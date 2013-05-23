@@ -37,6 +37,11 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="IOpcode.cs" />
+    <Compile Include="IPort.cs" />
+    <Compile Include="ISumpCommander.cs" />
+    <Compile Include="TriggerConfiguration.cs" />
+    <Compile Include="Serial.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
