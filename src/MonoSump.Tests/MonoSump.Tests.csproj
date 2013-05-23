@@ -37,6 +37,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="SerialTests.cs" />
+    <Compile Include="SumpCommanderTests.cs" />
+    <Compile Include="TestPort.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoSump\MonoSump.csproj">

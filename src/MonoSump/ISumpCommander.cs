@@ -7,7 +7,7 @@ namespace Earlz.MonoSump
 	{
 		void Reset();
 		void Run();
-		int GetID();
+		string GetID();
 		void SetTriggerMasks(bool[] mask);
 		void SetTriggerValues(bool[] values);
 		void SetTriggerConfigurations(TriggerConfiguration[] configs);

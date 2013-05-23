@@ -7,7 +7,7 @@ namespace Earlz.MonoSump
 		public ArgumentHandler()
 		{
 		}
-		public static Config ParseCommands(string[] args)
+		public Config ParseCommands(string[] args)
 		{
 			var config=new Config();
 			foreach(var arg in args)
