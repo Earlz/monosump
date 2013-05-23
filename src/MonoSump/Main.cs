@@ -1,13 +1,12 @@
 using System;
 
-namespace MonoSump
+namespace Earlz.MonoSump
 {
 	class MainClass
 	{
 		public static void Main(string[] args)
 		{
 			Console.WriteLine("Hello World!");
-
 		}
 	}
 }

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8A6949D4-5D61-410C-9901-C9115983E58F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MonoSump</RootNamespace>
+    <RootNamespace>Earlz.MonoSump</RootNamespace>
     <AssemblyName>MonoSump</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
