@@ -20,6 +20,19 @@ namespace Earlz.MonoSump
 				{
 					Console.WriteLine("Device ID: "+commander.GetID());
 				}
+
+				//test it out
+
+				var masks=new bool[32];
+				masks[0]=true;
+				commander.SetTriggerMasks(0, masks);
+				var values=new bool[32];
+				commander.SetTriggerValues(0, values);
+				commander.SetTriggerConfigurations(0, new TriggerConfiguration(){Start=true, Level=0});
+				commander.Run();
+				var data=commander.GetData(1000, 10000);
+				Console.WriteLine("done with "+data.Count+" frames");
+
 			}
 		}
 

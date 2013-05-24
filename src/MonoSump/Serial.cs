@@ -1,5 +1,6 @@
 using System;
 using System.IO.Ports;
+using System.Timers;
 
 namespace Earlz.MonoSump
 {
@@ -36,6 +37,7 @@ namespace Earlz.MonoSump
 			{
 				try
 				{
+					SerialPort.ReadTimeout=timeout;
 					return (byte)SerialPort.ReadByte();
 				}
 				catch //clause?
