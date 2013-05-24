@@ -81,7 +81,7 @@ namespace Earlz.MonoSump
 
 		public void Run()
 		{
-			throw new NotImplementedException();
+			Port.WriteByte(0x01);
 		}
 
 		public string GetID()
@@ -95,21 +95,52 @@ namespace Earlz.MonoSump
 			return Encoding.ASCII.GetString(bytes);
 		}
 
-		public void SetTriggerMasks(bool[] mask)
+		public void SetTriggerMasks(int stage, bool[] mask)
+		{
+			Port.WriteByte((byte)(0xC0|(stage<<2)));
+			for(int i=3;i>=0;i--)
+			{
+				int val=0;
+				for(int j=0;j<8;j++)
+				{
+					val|=(mask[j*i] ? 0 : 1) << j;
+				}
+				Port.WriteByte((byte)val);
+			}
+		}
+		public void SetTriggerValues(int stage, bool[] values)
+		{
+			Port.WriteByte((byte)(0xC1|(stage<<2)));
+			for(int i=3;i>=0;i--)
+			{
+				int val=0;
+				for(int j=0;j<8;j++)
+				{
+					val|=(values[j*i] ? 0 : 1) << j;
+				}
+				Port.WriteByte((byte)val);
+			}
+		}
+		public void SetTriggerConfigurations(int stage, TriggerConfiguration[] configs)
 		{
 			throw new NotImplementedException();
 		}
-
-		public void SetTriggerValues(bool[] values)
+		public void SetDivider(int divider)
 		{
 			throw new NotImplementedException();
 		}
-
-		public void SetTriggerConfigurations(TriggerConfiguration[] configs)
+		public void SetSampleSizeAndDelay(int size, int delay)
 		{
 			throw new NotImplementedException();
 		}
-
+		public void SetFlags(SumpFlags flags)
+		{
+			throw new NotImplementedException();
+		}
+		public byte[] GetData(int expectedSize, int timeout)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
 
