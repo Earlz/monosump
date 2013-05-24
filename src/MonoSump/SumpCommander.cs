@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Earlz.MonoSump
 {
@@ -103,7 +104,7 @@ namespace Earlz.MonoSump
 				int val=0;
 				for(int j=0;j<8;j++)
 				{
-					val|=(mask[j*i] ? 0 : 1) << j;
+					val|=(mask[j*i] ? 1 : 0) << j;
 				}
 				Port.WriteByte((byte)val);
 			}
@@ -116,14 +117,24 @@ namespace Earlz.MonoSump
 				int val=0;
 				for(int j=0;j<8;j++)
 				{
-					val|=(values[j*i] ? 0 : 1) << j;
+					val|=(values[j*i] ? 1 : 0) << j;
 				}
 				Port.WriteByte((byte)val);
 			}
 		}
-		public void SetTriggerConfigurations(int stage, TriggerConfiguration[] configs)
+		public void SetTriggerConfigurations(int stage, TriggerConfiguration config)
 		{
-			throw new NotImplementedException();
+			Port.WriteByte((byte)(0xC2|(stage<<2)));
+			Port.WriteByte((byte)(config.Delay & 0xFF));
+			Port.WriteByte((byte)(config.Delay & 0xFF00 >> 8));
+			int tmp=(config.Channel & 0xF) << 4;
+			tmp|=config.Level;
+			Port.WriteByte((byte)tmp);
+			tmp=0;
+			tmp=(config.Start ? 1 : 0) << 3;
+			tmp|=(config.Serial ? 1 : 0) << 2;
+			tmp|=(config.Channel & 0x1F) >> 4;
+			Port.WriteByte((byte)tmp);
 		}
 		public void SetDivider(int divider)
 		{
@@ -137,9 +148,30 @@ namespace Earlz.MonoSump
 		{
 			throw new NotImplementedException();
 		}
-		public byte[] GetData(int expectedSize, int timeout)
+		public IList<bool[]> GetData(int expectedSize, int timeout)
 		{
-			throw new NotImplementedException();
+			var list=new List<bool[]>(expectedSize);
+			var current=new bool[32]; //32 channels
+			var currentTimeout=timeout;
+			while(true)
+			{
+				for(int i=0;i<4;i++)
+				{
+					var tmp=Port.ReadByte(currentTimeout);
+					if(tmp==null)
+					{
+						return list;
+					}
+					int data=tmp.Value;
+					for(int j=0;j<8;j++)
+					{
+						current[i*j]=(data & (1 << j)) > 0;
+					}
+					currentTimeout=1000; //use a much more reasonable timeout after we start getting data
+				}
+				list.Add(current);
+				current=new bool[32];
+			}
 		}
 	}
 }
