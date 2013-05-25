@@ -29,8 +29,15 @@ namespace Earlz.MonoSump
 				var values=new bool[32];
 				commander.SetTriggerValues(0, values);
 				commander.SetTriggerConfigurations(0, new TriggerConfiguration(){Start=true, Level=0});
+				commander.SetReadAndDelayCount(100, 100);
+				var flags=new SumpFlags();
+				flags.Filter=false;
+				flags.InvertedClock=false;
+				flags.ExternalClock=false;
+				commander.SetFlags(flags);
+				commander.SetDivider(commander.Clock/60);
 				commander.Run();
-				var data=commander.GetData(1000, 10000);
+				var data=commander.GetData(1000, 1000000);
 				Console.WriteLine("done with "+data.Count+" frames");
 				foreach(var d in data)
 				{
