@@ -105,6 +105,7 @@ namespace Earlz.MonoSump
 		public void SetTriggerConfigurations(int stage, TriggerConfiguration config)
 		{
 			Port.WriteByte((byte)(0xC2|(stage<<2)));
+			Assert(config.Delay > 0xFFFF, "Trigger Delay can not be greater than 0xFFFF!");
 			Port.WriteByte((byte)(config.Delay & 0xFF));
 			Port.WriteByte((byte)(config.Delay & 0xFF00 >> 8));
 			int tmp=(config.Channel & 0xF) << 4;
@@ -118,6 +119,7 @@ namespace Earlz.MonoSump
 		}
 		public void SetDivider(int divider)
 		{
+			Assert(divider>0xFFFFFF, "Divider can not be greater than 0xFFFFFF!");
 			Port.WriteByte((byte)0x80);
 			Port.WriteByte((byte)(divider&0xFF));
 			Port.WriteByte((byte)((divider&0xFF00) >> 8));
@@ -127,6 +129,8 @@ namespace Earlz.MonoSump
 		
 		public void SetReadAndDelayCount(int read, int delay)
 		{
+			Assert(read>0xFFFF, "ReadCount can not be greater than 0xFFFF!");
+			Assert(delay>0xFFFF, "DelayCount can not be greater than 0xFFFF!");
 			Port.WriteByte((byte)0x81);
 			Port.WriteByte((byte)((read & 0xFF)));
 			Port.WriteByte((byte)(((read & 0xFF00) >> 8)));
@@ -180,6 +184,11 @@ namespace Earlz.MonoSump
 			{
 			    return 100000000;	// device clock in Hz
 			}
+		}
+		void Assert(bool condition, string message)
+		{
+			if(condition)
+				throw new ApplicationException(message);
 		}
 		public IList<bool[]> GetData(int expectedSize, int timeout)
 		{
