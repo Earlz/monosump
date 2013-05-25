@@ -16,7 +16,7 @@ namespace Earlz.MonoSump
 		void SetSampleSizeAndDelay(int size, int delay);
 		void SetFlags(SumpFlags flags);
 		IList<bool[]> GetData(int expectedSize, int timeout);
-
+		int Clock{get;}
 
 	}
 }

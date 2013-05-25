@@ -138,7 +138,11 @@ namespace Earlz.MonoSump
 		}
 		public void SetDivider(int divider)
 		{
-			throw new NotImplementedException();
+			Port.WriteByte((byte)0x80);
+			Port.WriteByte((byte)(divider&0xFF));
+			Port.WriteByte((byte)((divider&0xFF00) >> 8));
+			Port.WriteByte((byte)((divider&0xFF0000) >> 16));
+			Port.WriteByte(0); //doesn't matter
 		}
 		public void SetSampleSizeAndDelay(int size, int delay)
 		{
@@ -147,6 +151,13 @@ namespace Earlz.MonoSump
 		public void SetFlags(SumpFlags flags)
 		{
 			throw new NotImplementedException();
+		}
+		public int Clock
+		{
+			get
+			{
+			    return 100000000;	// device clock in Hz
+			}
 		}
 		public IList<bool[]> GetData(int expectedSize, int timeout)
 		{
@@ -172,6 +183,7 @@ namespace Earlz.MonoSump
 				list.Add(current);
 				current=new bool[32];
 			}
+			return list;
 		}
 	}
 }
