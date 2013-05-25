@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoSump", "MonoSump\MonoSu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoSump.Tests", "MonoSump.Tests\MonoSump.Tests.csproj", "{7427A21A-ABDF-4397-91FC-C32303DF6B49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoSump.Core", "MonoSump.Core\MonoSump.Core.csproj", "{A3C5A9EF-5B3A-4CE1-B8E0-77B718EC5FCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +21,10 @@ Global
 		{8A6949D4-5D61-410C-9901-C9115983E58F}.Debug|x86.Build.0 = Debug|x86
 		{8A6949D4-5D61-410C-9901-C9115983E58F}.Release|x86.ActiveCfg = Release|x86
 		{8A6949D4-5D61-410C-9901-C9115983E58F}.Release|x86.Build.0 = Release|x86
+		{A3C5A9EF-5B3A-4CE1-B8E0-77B718EC5FCA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A3C5A9EF-5B3A-4CE1-B8E0-77B718EC5FCA}.Debug|x86.Build.0 = Debug|Any CPU
+		{A3C5A9EF-5B3A-4CE1-B8E0-77B718EC5FCA}.Release|x86.ActiveCfg = Release|Any CPU
+		{A3C5A9EF-5B3A-4CE1-B8E0-77B718EC5FCA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = MonoSump\MonoSump.csproj

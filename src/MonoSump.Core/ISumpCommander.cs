@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Earlz.MonoSump
+namespace Earlz.MonoSump.Core
 {
-
 	public interface ISumpCommander
 	{
 		void Reset();
@@ -17,7 +16,6 @@ namespace Earlz.MonoSump
 		void SetFlags(SumpFlags flags);
 		IList<bool[]> GetData(int expectedSize, int timeout);
 		int Clock{get;}
-
 	}
 }
 

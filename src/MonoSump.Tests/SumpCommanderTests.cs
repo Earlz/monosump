@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using Earlz.MonoSump.Core;
 
 namespace Earlz.MonoSump.Tests
 {

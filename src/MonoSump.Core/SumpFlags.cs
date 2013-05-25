@@ -1,6 +1,6 @@
 using System;
 
-namespace Earlz.MonoSump
+namespace Earlz.MonoSump.Core
 {
 	public class SumpFlags
 	{

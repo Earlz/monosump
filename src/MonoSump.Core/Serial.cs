@@ -1,9 +1,8 @@
 using System;
 using System.IO.Ports;
-using System.Timers;
 
-namespace Earlz.MonoSump
-{
+namespace Earlz.MonoSump.Core
+{	
 	public class Serial : IPort, IDisposable
 	{
 		public SerialPort SerialPort;
@@ -22,7 +21,7 @@ namespace Earlz.MonoSump
 				}
 			}
 		}
-
+		
 		public void WriteByte(byte value)
 		{
 			SerialPort.Write(new byte[]{value}, 0, 1);
@@ -46,7 +45,7 @@ namespace Earlz.MonoSump
 				}
 			}
 		}
-
+		
 		public int BitRate
 		{
 			get
@@ -54,13 +53,13 @@ namespace Earlz.MonoSump
 				throw new NotImplementedException();
 			}
 		}
-
+		
 		public void Dispose()
 		{
 			SerialPort.Close();
 			SerialPort.Dispose();
 		}
-
+		
 		public Serial(string name, int baudrate)
 		{
 			SerialPort=new SerialPort(name, baudrate);

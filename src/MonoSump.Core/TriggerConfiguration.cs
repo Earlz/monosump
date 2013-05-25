@@ -1,9 +1,9 @@
 using System;
 
-namespace Earlz.MonoSump
+namespace Earlz.MonoSump.Core
 {
 	public class TriggerConfiguration
-	{
+	{		
 		public int Delay{get;set;}
 		public int Channel{get;set;}
 		public int Level{get;set;}

@@ -1,6 +1,6 @@
 using System;
 
-namespace Earlz.MonoSump
+namespace Earlz.MonoSump.Core
 {
 	/// <summary>
 	///  interface for a general "port" of some sort, such as a serial port

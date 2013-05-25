@@ -1,8 +1,8 @@
 using System;
-using System.Text;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Earlz.MonoSump
+namespace Earlz.MonoSump.Core
 {
 	public class SumpCommander : ISumpCommander
 	{
@@ -14,57 +14,57 @@ namespace Earlz.MonoSump
 		/// <summary>
 		/// Noise filter
 		/// </summary>
-	    const byte FLAG_FILTER = 0x02;		// noise filter
+		const byte FLAG_FILTER = 0x02;		// noise filter
 		/// <summary>
 		/// Disable channel group 0
 		/// </summary>
-	    const byte FLAG_DISABLE_G0 = 0x00000004;	// disable channel group 0
+		const byte FLAG_DISABLE_G0 = 0x00000004;	// disable channel group 0
 		/// <summary>
 		/// Disable channel gorup 1
 		/// </summary>
-	    const byte FLAG_DISABLE_G1 = 0x00000008;	// disable channel group 1
+		const byte FLAG_DISABLE_G1 = 0x00000008;	// disable channel group 1
 		/// <summary>
 		/// Disable channel group 2
 		/// </summary>
-	    const byte FLAG_DISABLE_G2 = 0x00000010;	// disable channel group 2
+		const byte FLAG_DISABLE_G2 = 0x00000010;	// disable channel group 2
 		/// <summary>
 		/// Disable channel group 3
 		/// </summary>
-	    const byte FLAG_DISABLE_G3 = 0x00000020;	// disable channel group 3
+		const byte FLAG_DISABLE_G3 = 0x00000020;	// disable channel group 3
 		/// <summary>
 		/// Use external clock
 		/// </summary>
-	    const byte FLAG_EXTERNAL = 0x00000040;	// disable channel group 3
+		const byte FLAG_EXTERNAL = 0x00000040;	// disable channel group 3
 		/// <summary>
 		/// Invert the clock (only works with internal clock)
 		/// </summary>
-	    const byte FLAG_INVERTED = 0x00000080;	// disable channel group 3
+		const byte FLAG_INVERTED = 0x00000080;	// disable channel group 3
 		/// <summary>
 		/// Run length encoding (currently no plans to implement, since I don't have hardware capable of testing)
 		/// </summary>
-	   // const byte FLAG_RLE = 0x00000100;	// run length encoding
+		// const byte FLAG_RLE = 0x00000100;	// run length encoding
 		/// <summary>
 		/// clock speed in Hz
 		/// </summary>
-	    const int CLOCK = 100000000;	// device clock in Hz
+		const int CLOCK = 100000000;	// device clock in Hz
 		IPort Port;
 		public SumpCommander(IPort port)
 		{
 			Port=port;
 		}
-
-
+		
+		
 		public void Reset()
 		{
 			var bytes=new byte[]{0x00,0x00,0x00,0x00,0x00};
 			Port.WriteBytes(bytes);
 		}
-
+		
 		public void Run()
 		{
 			Port.WriteByte(0x01);
 		}
-
+		
 		public string GetID()
 		{
 			Port.WriteByte(0x02);
@@ -75,7 +75,7 @@ namespace Earlz.MonoSump
 			}
 			return Encoding.ASCII.GetString(bytes);
 		}
-
+		
 		public void SetTriggerMasks(int stage, bool[] mask)
 		{
 			Port.WriteByte((byte)(0xC0|(stage<<2)));
@@ -182,7 +182,7 @@ namespace Earlz.MonoSump
 		{
 			get
 			{
-			    return 100000000;	// device clock in Hz
+				return 100000000;	// device clock in Hz
 			}
 		}
 		void Assert(bool condition, string message)

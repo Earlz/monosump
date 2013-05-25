@@ -1,5 +1,6 @@
 using System;
 using System.IO.Ports;
+using Earlz.MonoSump.Core;
 
 namespace Earlz.MonoSump
 {

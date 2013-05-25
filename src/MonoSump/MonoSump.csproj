@@ -38,15 +38,14 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="IOpcode.cs" />
-    <Compile Include="IPort.cs" />
-    <Compile Include="ISumpCommander.cs" />
-    <Compile Include="TriggerConfiguration.cs" />
-    <Compile Include="Serial.cs" />
     <Compile Include="ArgumentHandler.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="SumpCommander.cs" />
-    <Compile Include="SumpFlags.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\MonoSump.Core\MonoSump.Core.csproj">
+      <Project>{A3C5A9EF-5B3A-4CE1-B8E0-77B718EC5FCA}</Project>
+      <Name>MonoSump.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
