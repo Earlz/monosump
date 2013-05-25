@@ -32,7 +32,20 @@ namespace Earlz.MonoSump
 				commander.Run();
 				var data=commander.GetData(1000, 10000);
 				Console.WriteLine("done with "+data.Count+" frames");
-
+				foreach(var d in data)
+				{
+					foreach(var b in d)
+					{
+						if(b)
+						{
+							Console.Write("1");
+						}else
+						{
+							Console.Write("0");
+						}
+					}
+					Console.WriteLine("");
+				}
 			}
 		}
 
