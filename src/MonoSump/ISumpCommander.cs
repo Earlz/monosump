@@ -13,7 +13,7 @@ namespace Earlz.MonoSump
 		void SetTriggerValues(int stage, bool[] values);
 		void SetTriggerConfigurations(int stage, TriggerConfiguration configs);
 		void SetDivider(int divider);
-		void SetSampleSizeAndDelay(int size, int delay);
+		void SetReadAndDelayCount(int read, int delay);
 		void SetFlags(SumpFlags flags);
 		IList<bool[]> GetData(int expectedSize, int timeout);
 		int Clock{get;}

@@ -10,59 +10,39 @@ namespace Earlz.MonoSump
 		/// <summary>
 		/// demultiplex
 		/// </summary>
-		const int FLAG_DEMUX = 0x00000001;		// demultiplex
+		const byte FLAG_DEMUX = 0x01;		// demultiplex
 		/// <summary>
 		/// Noise filter
 		/// </summary>
-	    const int FLAG_FILTER = 0x00000002;		// noise filter
+	    const byte FLAG_FILTER = 0x02;		// noise filter
 		/// <summary>
 		/// Disable channel group 0
 		/// </summary>
-	    const int FLAG_DISABLE_G0 = 0x00000004;	// disable channel group 0
+	    const byte FLAG_DISABLE_G0 = 0x00000004;	// disable channel group 0
 		/// <summary>
 		/// Disable channel gorup 1
 		/// </summary>
-	    const int FLAG_DISABLE_G1 = 0x00000008;	// disable channel group 1
+	    const byte FLAG_DISABLE_G1 = 0x00000008;	// disable channel group 1
 		/// <summary>
 		/// Disable channel group 2
 		/// </summary>
-	    const int FLAG_DISABLE_G2 = 0x00000010;	// disable channel group 2
+	    const byte FLAG_DISABLE_G2 = 0x00000010;	// disable channel group 2
 		/// <summary>
 		/// Disable channel group 3
 		/// </summary>
-	    const int FLAG_DISABLE_G3 = 0x00000020;	// disable channel group 3
+	    const byte FLAG_DISABLE_G3 = 0x00000020;	// disable channel group 3
 		/// <summary>
 		/// Use external clock
 		/// </summary>
-	    const int FLAG_EXTERNAL = 0x00000040;	// disable channel group 3
+	    const byte FLAG_EXTERNAL = 0x00000040;	// disable channel group 3
 		/// <summary>
 		/// Invert the clock (only works with internal clock)
 		/// </summary>
-	    const int FLAG_INVERTED = 0x00000080;	// disable channel group 3
+	    const byte FLAG_INVERTED = 0x00000080;	// disable channel group 3
 		/// <summary>
 		/// Run length encoding (currently no plans to implement, since I don't have hardware capable of testing)
 		/// </summary>
-	    const int FLAG_RLE = 0x00000100;	// run length encoding
-		/// <summary>
-		/// Mask for delay value
-		/// </summary>
-	    const int TRIGGER_DELAYMASK = 0x0000ffff;// mask for delay value
-		/// <summary>
-		/// Mask for level value
-		/// </summary>
-	    const int TRIGGER_LEVELMASK = 0x00030000;// mask for level value
-		/// <summary>
-		/// Mask for channel for the trigger
-		/// </summary>
-	    const int TRIGGER_CHANNELMASK = 0x01f00000;// mask for level value
-		/// <summary>
-		/// Trigger uses serial mode
-		/// </summary>
-	    const int TRIGGER_SERIAL = 0x04000000;	// trigger operates in serial mode
-		/// <summary>
-		/// Trigger should start capture when fired
-		/// </summary>
-	    const int TRIGGER_CAPTURE = 0x08000000;	// trigger will start capture when fired
+	   // const byte FLAG_RLE = 0x00000100;	// run length encoding
 		/// <summary>
 		/// clock speed in Hz
 		/// </summary>
@@ -144,13 +124,55 @@ namespace Earlz.MonoSump
 			Port.WriteByte((byte)((divider&0xFF0000) >> 16));
 			Port.WriteByte(0); //doesn't matter
 		}
-		public void SetSampleSizeAndDelay(int size, int delay)
+		
+		public void SetReadAndDelayCount(int read, int delay)
 		{
-			throw new NotImplementedException();
+			Port.WriteByte((byte)0x81);
+			Port.WriteByte((byte)((read & 0xFF)));
+			Port.WriteByte((byte)(((read & 0xFF00) >> 8)));
+			Port.WriteByte((byte)((delay &0xFF)));
+			Port.WriteByte((byte)(((delay & 0xFF00) >> 8)));
 		}
 		public void SetFlags(SumpFlags flags)
 		{
-			throw new NotImplementedException();
+			Port.WriteByte((byte)0x82);
+			int tmp=0;
+			if(flags.InvertedClock)
+			{
+				tmp|=FLAG_INVERTED;
+			}
+			if(flags.Demux)
+			{
+				tmp|=FLAG_DEMUX;
+			}
+			if(flags.ExternalClock)
+			{
+				tmp|=FLAG_INVERTED;
+			}
+			if(flags.Filter)
+			{
+				tmp|=FLAG_FILTER;
+			}
+			if(flags.ChannelGroups[0])
+			{
+				tmp|=FLAG_DISABLE_G0;
+			}
+			if(flags.ChannelGroups[1])
+			{
+				tmp|=FLAG_DISABLE_G1;
+			}
+			if(flags.ChannelGroups[2])
+			{
+				tmp|=FLAG_DISABLE_G2;
+			}
+			if(flags.ChannelGroups[3])
+			{
+				tmp|=FLAG_DISABLE_G3;
+			}
+			Port.WriteByte((byte)tmp);
+			Port.WriteByte(0);
+			Port.WriteByte(0);
+			Port.WriteByte(0);
 		}
 		public int Clock
 		{
