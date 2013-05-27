@@ -31,6 +31,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -41,6 +44,7 @@
     <Compile Include="SumpFlags.cs" />
     <Compile Include="TriggerConfiguration.cs" />
     <Compile Include="ToJsonExtension.cs" />
+    <Compile Include="SumpConfiguration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

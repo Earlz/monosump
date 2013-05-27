@@ -34,6 +34,9 @@
     <Reference Include="nunit.framework">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

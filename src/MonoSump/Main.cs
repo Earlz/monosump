@@ -1,6 +1,7 @@
 using System;
 using System.IO.Ports;
 using Earlz.MonoSump.Core;
+using Newtonsoft.Json.Linq;
 
 namespace Earlz.MonoSump
 {
@@ -12,8 +13,19 @@ namespace Earlz.MonoSump
 
 			var handler=new ArgumentHandler();
 			var config=handler.ParseCommands(args);
+			if(config==null)
+			{
+				return;
+			}
+				string s=@"
+{
+	foo: ""bar""
+}";
+				var json=JObject.Parse(s);
+				Console.WriteLine(json["foo"].ToString());
 			using(var serial=new Serial(config.DeviceName, 115200))
 			{
+
 				var commander=new SumpCommander(serial);
 				Console.WriteLine("Resetting device");
 				commander.Reset();

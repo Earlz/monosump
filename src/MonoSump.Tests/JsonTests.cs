@@ -2,15 +2,17 @@ using System;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Earlz.MonoSump.Core;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Earlz.MonoSump.Tests
 {
 	[TestFixture()]
 	public class JsonTests
 	{
-		/*
+
 		[Test]
-		public void IsValidJson()
+		public void DataOutputIsValidJson()
 		{
 			var random=new Random(123);
 			var list=new List<bool[]>();
@@ -34,7 +36,24 @@ namespace Earlz.MonoSump.Tests
 				}
 			}
 		}
-		*/
+		[Test]
+		public void LooseConfigJsonWorks()
+		{
+			string s=@"
+{
+	foo: ""bar""
+}";
+			var json=JObject.Parse(s);
+			Assert.AreEqual("bar", json["foo"].ToString());
+			var obj=JsonConvert.DeserializeObject<TestObject>(s);
+			Assert.AreEqual("bar", obj.foo);
+
+		}
+		public class TestObject
+		{
+			public string foo{get;set;}
+		}
+
 
 
 	}
