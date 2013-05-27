@@ -49,7 +49,7 @@ namespace Earlz.MonoSump
 				commander.SetFlags(flags);
 				commander.SetDivider(commander.Clock/60);
 				commander.Run();
-				var data=commander.GetData(1000, 1000000);
+				var data=commander.GetData(1000, 1000000, 200);
 				Console.WriteLine("done with "+data.Count+" frames");
 				foreach(var d in data)
 				{

@@ -157,19 +157,19 @@ namespace Earlz.MonoSump.Core
 			{
 				tmp|=FLAG_FILTER;
 			}
-			if(flags.ChannelGroups[0])
+			if(flags.DisabledChannelGroups[0])
 			{
 				tmp|=FLAG_DISABLE_G0;
 			}
-			if(flags.ChannelGroups[1])
+			if(flags.DisabledChannelGroups[1])
 			{
 				tmp|=FLAG_DISABLE_G1;
 			}
-			if(flags.ChannelGroups[2])
+			if(flags.DisabledChannelGroups[2])
 			{
 				tmp|=FLAG_DISABLE_G2;
 			}
-			if(flags.ChannelGroups[3])
+			if(flags.DisabledChannelGroups[3])
 			{
 				tmp|=FLAG_DISABLE_G3;
 			}
@@ -190,11 +190,12 @@ namespace Earlz.MonoSump.Core
 			if(condition)
 				throw new ApplicationException(message);
 		}
-		public IList<bool[]> GetData(int expectedSize, int timeout)
+
+		public IList<bool[]> GetData(int expectedSize, int initialTimeout, int runningTimeout)
 		{
 			var list=new List<bool[]>(expectedSize);
 			var current=new bool[32]; //32 channels
-			var currentTimeout=timeout;
+			var currentTimeout=initialTimeout;
 			while(true)
 			{
 				for(int i=0;i<4;i++)
@@ -209,7 +210,7 @@ namespace Earlz.MonoSump.Core
 					{
 						current[i*j]=(data & (1 << j)) > 0;
 					}
-					currentTimeout=1000; //use a much more reasonable timeout after we start getting data
+					currentTimeout=runningTimeout; //use a much more reasonable timeout after we start getting data
 				}
 				list.Add(current);
 				current=new bool[32];

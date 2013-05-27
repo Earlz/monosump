@@ -14,7 +14,7 @@ namespace Earlz.MonoSump.Core
 		void SetDivider(int divider);
 		void SetReadAndDelayCount(int read, int delay);
 		void SetFlags(SumpFlags flags);
-		IList<bool[]> GetData(int expectedSize, int timeout);
+		IList<bool[]> GetData(int expectedSize, int initialTimeout, int runningTimeout);
 		int Clock{get;}
 	}
 }
