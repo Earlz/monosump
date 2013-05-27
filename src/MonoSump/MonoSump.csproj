@@ -8,7 +8,7 @@
     <ProjectGuid>{8A6949D4-5D61-410C-9901-C9115983E58F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Earlz.MonoSump</RootNamespace>
-    <AssemblyName>MonoSump</AssemblyName>
+    <AssemblyName>monosump</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
