@@ -43,6 +43,7 @@
     <Compile Include="Serial.cs" />
     <Compile Include="SumpFlags.cs" />
     <Compile Include="TriggerConfiguration.cs" />
+    <Compile Include="ToJsonExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

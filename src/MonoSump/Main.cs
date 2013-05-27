@@ -54,6 +54,8 @@ namespace Earlz.MonoSump
 					}
 					Console.WriteLine("");
 				}
+				Console.WriteLine("Json:");
+				Console.WriteLine(data.ToJson());
 			}
 		}
 
