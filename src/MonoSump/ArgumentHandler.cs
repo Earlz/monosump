@@ -2,37 +2,124 @@ using System;
 
 namespace Earlz.MonoSump
 {
+	public class ArgumentParseException : ApplicationException
+	{
+		public ArgumentParseException(string message) : base(message)
+		{
+		}
+	}
 	public class ArgumentHandler
 	{
+		enum CurrentState
+		{
+			Bare, //bare (ready to accept options or device name)
+			Data, //ready to accept dataoutput
+			Trigger, //ready to accept N=V for trigger option
+			Samples, //ready to accept N for sample count
+			Frequency, //ready to accept F for sample frequency
+			Config //ready to accept config file for --config
+		}
 		public ArgumentHandler()
 		{
 		}
-		public Config ParseCommands(string[] args)
+		public Commands ParseCommands(string[] args)
 		{
-			var config=new Config();
+			var commands=new Commands();
+			var state=CurrentState.Bare;
+			bool resetState=true;
 			foreach(var arg in args)
 			{
-				switch(arg)
+				resetState=true;
+				if(state == CurrentState.Bare)
 				{
-				case "--help":
-					PrintHelp();
-					return null;
-				case "--identify":
-					config.IdentifyOnly=true;
-					break;
-				default:
-					if(config.DeviceName==null)
+					switch(arg)
 					{
-						config.DeviceName=arg;
+					case "--help":
+						PrintHelp();
+						return null;
+					case "--identify":
+						commands.Identify=true;
+						break;
+					case "--json":
+						commands.JsonOut=true;
+						break;
+					case "--verbose":
+						commands.Verbose=true;
+						break;
+					case "--trigger":
+						state=CurrentState.Trigger;
+						resetState=false;
+						break;
+					case "--frequency":
+						state=CurrentState.Frequency;
+						resetState=false;
+						break;
+					case "--samples":
+						state=CurrentState.Samples;
+						resetState=false;
+						break;
+					default:
+						if(commands.DeviceName==null)
+						{
+							commands.DeviceName=arg;
+						}
+						else if(commands.DataOut==null)
+						{
+							commands.DataOut=arg;
+						}
+						else
+						{
+							throw new ApplicationException("unexpected extra argument after dataout");
+						}
+						break;
 					}
-					else
+				}
+				else if(state == CurrentState.Trigger)
+				{
+					int n, v;
+					try
 					{
-						throw new ApplicationException("unexpected extra argument after devicename");
+					n=int.Parse(arg.Split(new char[]{'='})[0]);
+					v=int.Parse(arg.Split(new char[]{'='})[1]);
+					}catch
+					{
+						throw new ArgumentParseException("--trigger parameter is wrong. Should look like `N=V` where N and V are integers, like --trigger 10=1");
 					}
-					break;
+					commands.Triggers.Add(n, v);
+				}
+				else if(state==CurrentState.Frequency)
+				{
+					int f=0;
+					if(!int.TryParse(arg, out f))
+					{
+						throw new ArgumentParseException("--frequency parameter is wrong. Should look like F where F is an integer, like --frequency 1000");
+					}
+					commands.Frequency=f;
+				}
+				else if(state==CurrentState.Samples)
+				{
+					int n=0;
+					if(!int.TryParse(arg, out n))
+					{
+						throw new ArgumentParseException("--samples parameter is wrong. Should look like N where N is an integer, like --samples 100");
+					}
+					commands.Samples=n;
+				}
+				else
+				{
+					throw new NotImplementedException("that's not suppose to happen :/");
+				}
+
+
+
+
+				if(resetState && state == CurrentState.Bare)
+				{
+					state=CurrentState.Bare;
 				}
 			}
-			return config;
+
+			return commands;
 		}
 		public static void PrintHelp()
 		{
@@ -48,7 +135,7 @@ Options:
 --verbose     #show extra info
 --trigger N=V #Setup a stage-1 trigger at channel N for value V(1 or 0)
 --samples N   #Get N number of samples
---frequency F #Set the sample frequency to F hz
+--frequency F #Set the sample frequency to F Hz
 --config file #load a configuration file (this will overwrite all command line options except for --verbose and --json
 
 Loading a configuration file will cause all command lien options to be ignored,

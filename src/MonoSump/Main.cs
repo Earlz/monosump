@@ -28,7 +28,7 @@ namespace Earlz.MonoSump
 				var commander=new SumpCommander(serial);
 				Console.WriteLine("Resetting device");
 				commander.Reset();
-				if(config.IdentifyOnly)
+				if(config.Identify)
 				{
 					Console.WriteLine("Device ID: "+commander.GetID());
 				}
