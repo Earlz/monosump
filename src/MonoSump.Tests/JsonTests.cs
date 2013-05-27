@@ -44,7 +44,7 @@ namespace Earlz.MonoSump.Tests
 	foo: ""bar""
 }";
 			var json=JObject.Parse(s);
-			Assert.AreEqual("bar", json["foo"].ToString());
+			Assert.AreEqual("bar", (string)json["foo"]);
 			var obj=JsonConvert.DeserializeObject<TestObject>(s);
 			Assert.AreEqual("bar", obj.foo);
 

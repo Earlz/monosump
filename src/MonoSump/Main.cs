@@ -17,12 +17,6 @@ namespace Earlz.MonoSump
 			{
 				return;
 			}
-				string s=@"
-{
-	foo: ""bar""
-}";
-				var json=JObject.Parse(s);
-				Console.WriteLine(json["foo"].ToString());
 			using(var serial=new Serial(config.DeviceName, 115200))
 			{
 
