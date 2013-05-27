@@ -17,6 +17,11 @@ namespace Earlz.MonoSump
 			{
 				return;
 			}
+  
+			var conf=new SumpConfiguration();
+			Console.WriteLine(conf.SaveToJson());
+
+
 			using(var serial=new Serial(config.DeviceName, 115200))
 			{
 

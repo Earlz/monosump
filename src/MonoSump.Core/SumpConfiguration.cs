@@ -60,7 +60,23 @@ namespace Earlz.MonoSump.Core
 			ExternalClock=false;
 			InvertedClock=false;
 		}
+		public static SumpConfiguration LoadFromJson(string json)
+		{
+			json=json.Trim();
+			if(json[0]!='{')
+			{
+				//if they forget them, we're nice and tack on the opening and closing brace
+				json=json.Insert(0, "{") + "}";
+			}
+			var sump=JsonConvert.DeserializeObject<SumpConfiguration>(json);
+			return sump;
+		}
+		public string SaveToJson()
+		{
+			return JsonConvert.SerializeObject(this);
+		}
 	}
+
 	public class TriggerStageConfiguration
 	{
 		[JsonIgnore]
