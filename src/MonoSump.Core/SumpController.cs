@@ -10,7 +10,7 @@ namespace Earlz.MonoSump.Core
 		}
 		public IList<bool[]> Execute(SumpConfiguration config)
 		{
-
+			return null;
 		}
 	}
 }
