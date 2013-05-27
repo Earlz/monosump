@@ -45,6 +45,7 @@
     <Compile Include="TriggerConfiguration.cs" />
     <Compile Include="ToJsonExtension.cs" />
     <Compile Include="SumpConfiguration.cs" />
+    <Compile Include="SumpController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

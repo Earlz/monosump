@@ -44,13 +44,20 @@ Options:
 
 --help        #this screen
 --identify    #get the device ID
---json        #output data  to dataout in JSON
+--json        #output data to dataout in JSON
 --verbose     #show extra info
---triggerSTAGE:N=V  
- #stage is 0-3 stage number of trigger
- #N is channel number
- #V is value(1 or 0) the trigger must have)
---triggerconfigSTAGE:");
+--trigger N=V #Setup a stage-1 trigger at channel N for value V(1 or 0)
+--samples N   #Get N number of samples
+--frequency F #Set the sample frequency to F hz
+--config file #load a configuration file (this will overwrite all command line options except for --verbose and --json
+
+Loading a configuration file will cause all command lien options to be ignored,
+except for --verbose and --json
+
+Because of the complexity of SUMP, only a basic subset of features is exposed in the command line
+To get multi-stage triggers and more advanced configuration options, you must use a config file
+For an example configuration file see <TODO>
+");
 
 
 		}
