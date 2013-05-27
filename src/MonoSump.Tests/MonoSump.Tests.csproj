@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Earlz.MonoSump.Tests</RootNamespace>
     <AssemblyName>MonoSump.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -39,6 +40,7 @@
     <Compile Include="SerialTests.cs" />
     <Compile Include="SumpCommanderTests.cs" />
     <Compile Include="TestPort.cs" />
+    <Compile Include="JsonTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoSump\MonoSump.csproj">
