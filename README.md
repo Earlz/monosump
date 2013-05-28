@@ -3,6 +3,10 @@ MonoSump
 
 A minimalistic [SUMP](http://www.sump.org/projects/analyzer/) logic analyzer client with no external dependencies that runs on Mono and .Net that is done the right way
 
+# Download
+
+You can download a precompiled binary release at http://earlz.net/static/monosump_1.0.zip
+
 # Usage
 
     usage: monosump [options] devicename [dataoutput]
