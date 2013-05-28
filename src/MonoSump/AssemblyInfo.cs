@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("MonoSump")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A command line SUMP logic analyzer client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("http://earlz.net")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("earlz")]
+[assembly: AssemblyCopyright("Jordan Earls. BSD licensed")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
