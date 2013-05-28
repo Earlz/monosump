@@ -93,6 +93,10 @@ namespace Earlz.MonoSump
 					{
 						throw new ArgumentParseException("--trigger parameter is wrong. Should look like `N=V` where N and V are integers, like --trigger 10=1");
 					}
+					if(n>31 || n<0)
+					{
+						throw new ArgumentParseException("The channel number for a trigger can be no greater than 31 and no less than 0");
+					}
 					commands.Triggers.Add(n, v);
 				}
 				else if(state==CurrentState.Frequency)
@@ -121,9 +125,6 @@ namespace Earlz.MonoSump
 				{
 					throw new NotImplementedException("that's not suppose to happen :/");
 				}
-
-
-
 
 				if(resetState)
 				{

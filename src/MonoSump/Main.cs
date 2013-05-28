@@ -28,6 +28,14 @@ namespace Earlz.MonoSump
 			else
 			{
 				//apply command options
+				config.DelayCount=config.ReadCount=commands.Samples;
+				config.SampleFrequency=commands.Frequency;
+				config.TriggerSetup[0]=new TriggerStageConfiguration();
+				foreach(var kv in commands.Triggers)
+				{
+					config.TriggerSetup[0].Values.Add(kv);
+				}
+				config.TriggerSetup[0].Start=true;
 			}
 
 			using(var serial=new Serial(commands.DeviceName, 115200))

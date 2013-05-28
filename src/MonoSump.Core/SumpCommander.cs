@@ -79,12 +79,12 @@ namespace Earlz.MonoSump.Core
 		public void SetTriggerMasks(int stage, bool[] mask)
 		{
 			Port.WriteByte((byte)(0xC0|(stage<<2)));
-			for(int i=3;i>=0;i--)
+			for(int i=0;i<4;i++)
 			{
 				int val=0;
 				for(int j=0;j<8;j++)
 				{
-					val|=(mask[j*i] ? 1 : 0) << j;
+					val|=(mask[(i*8)+j] ? 1 : 0) << j;
 				}
 				Port.WriteByte((byte)val);
 			}
@@ -92,12 +92,12 @@ namespace Earlz.MonoSump.Core
 		public void SetTriggerValues(int stage, bool[] values)
 		{
 			Port.WriteByte((byte)(0xC1|(stage<<2)));
-			for(int i=3;i>=0;i--)
+			for(int i=0;i<4;i++)
 			{
 				int val=0;
 				for(int j=0;j<8;j++)
 				{
-					val|=(values[j*i] ? 1 : 0) << j;
+					val|=(values[(i*8)+j] ? 1 : 0) << j;
 				}
 				Port.WriteByte((byte)val);
 			}
@@ -208,7 +208,7 @@ namespace Earlz.MonoSump.Core
 					int data=tmp.Value;
 					for(int j=0;j<8;j++)
 					{
-						current[i*j]=(data & (1 << j)) > 0;
+						current[(i*8)+j]=(data & (1 << j)) > 0;
 					}
 					currentTimeout=runningTimeout; //use a much more reasonable timeout after we start getting data
 				}
