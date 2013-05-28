@@ -36,6 +36,10 @@ namespace Earlz.MonoSump.Core
 			}
 			for(int i=0;i<config.TriggerSetup.Length;i++) 
 			{
+				if(config.TriggerSetup[i]==null)
+				{
+					continue;
+				}
 				//setup stages
 				var stage=new TriggerConfiguration();
 				stage.Channel=config.TriggerSetup[i].Channel ?? 0;

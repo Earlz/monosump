@@ -125,7 +125,7 @@ namespace Earlz.MonoSump
 
 
 
-				if(resetState && state == CurrentState.Bare)
+				if(resetState)
 				{
 					state=CurrentState.Bare;
 				}
