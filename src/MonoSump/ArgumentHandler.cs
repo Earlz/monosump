@@ -13,7 +13,6 @@ namespace Earlz.MonoSump
 		enum CurrentState
 		{
 			Bare, //bare (ready to accept options or device name)
-			Data, //ready to accept dataoutput
 			Trigger, //ready to accept N=V for trigger option
 			Samples, //ready to accept N for sample count
 			Frequency, //ready to accept F for sample frequency
@@ -56,6 +55,10 @@ namespace Earlz.MonoSump
 						break;
 					case "--samples":
 						state=CurrentState.Samples;
+						resetState=false;
+						break;
+					case "--config":
+						state=CurrentState.Config;
 						resetState=false;
 						break;
 					default:
@@ -105,6 +108,10 @@ namespace Earlz.MonoSump
 					}
 					commands.Samples=n;
 				}
+				else if(state==CurrentState.Config)
+				{
+					commands.ConfigFile=arg;
+				}
 				else
 				{
 					throw new NotImplementedException("that's not suppose to happen :/");
@@ -119,6 +126,10 @@ namespace Earlz.MonoSump
 				}
 			}
 
+			if(state!=CurrentState.Bare)
+			{
+				Console.WriteLine("Warning: probably an error parsing the last parameter on the command line");
+			}
 			return commands;
 		}
 		public static void PrintHelp()
