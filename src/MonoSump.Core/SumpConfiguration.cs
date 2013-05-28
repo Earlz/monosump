@@ -4,29 +4,6 @@ using Newtonsoft.Json;
 
 namespace Earlz.MonoSump.Core
 {
-	/*Proposed schema:
-	 * 
-	 * { 
-	 * 	"ReadCount"=123,
-	 *  "Delaycount..."=123,
-	 * 
-	 * "Triggers" = [
-	 *   {
-	 * 		"Values"=[ 1: 1, 5:0, 8:1 ];
-	 * 		"Delay"=123.
-	 *		//etc for rest of config
-	 *   }, 
-	 *   { //for all 4 stages of triggers
-	 * 
-	 *   }
-	 * ]
-	 * }
-	 *
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
 	public class SumpConfiguration
 	{
 		[JsonProperty("stages")]

@@ -5,10 +5,12 @@ namespace Earlz.MonoSump.Core
 {
 	public class SumpController
 	{
-		ISumpCommander Sump;
-		public SumpController(ISumpCommander sump)
+		public ISumpCommander Sump{get;private set;}
+		public bool Verbose;
+		public SumpController(ISumpCommander sump, bool verbose)
 		{
 			Sump=sump;
+			Verbose=verbose;
 		}
 		public IList<bool[]> Execute(SumpConfiguration config)
 		{

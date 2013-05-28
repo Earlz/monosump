@@ -23,6 +23,11 @@ namespace Earlz.MonoSump
 		}
 		public Commands ParseCommands(string[] args)
 		{
+			if(args.Length==0)
+			{
+				PrintHelp();
+				return null;
+			}
 			var commands=new Commands();
 			var state=CurrentState.Bare;
 			bool resetState=true;
@@ -125,10 +130,13 @@ namespace Earlz.MonoSump
 					state=CurrentState.Bare;
 				}
 			}
-
 			if(state!=CurrentState.Bare)
 			{
 				Console.WriteLine("Warning: probably an error parsing the last parameter on the command line");
+			}
+			if(commands.DeviceName==null)
+			{
+				throw new ArgumentParseException("No device name was given. See --help");
 			}
 			return commands;
 		}
@@ -154,7 +162,7 @@ except for --verbose and --json
 
 Because of the complexity of SUMP, only a basic subset of features is exposed in the command line
 To get multi-stage triggers and more advanced configuration options, you must use a config file
-For an example configuration file see <TODO>
+For an example configuration file see https://github.com/Earlz/monosump/blob/master/exampleConfig.config
 ");
 
 

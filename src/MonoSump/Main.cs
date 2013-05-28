@@ -2,6 +2,8 @@ using System;
 using System.IO.Ports;
 using Earlz.MonoSump.Core;
 using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Text;
 
 namespace Earlz.MonoSump
 {
@@ -12,61 +14,76 @@ namespace Earlz.MonoSump
 			Console.WriteLine("MonoSump -- Sump Logic Analyzer Client");
 
 			var handler=new ArgumentHandler();
-			var config=handler.ParseCommands(args);
-			if(config==null)
+			var commands=handler.ParseCommands(args);
+			if(commands==null)
 			{
 				return;
 			}
-  
-			var conf=new SumpConfiguration();
-			Console.WriteLine(conf.SaveToJson());
-
-
-			using(var serial=new Serial(config.DeviceName, 115200))
+			var config=new SumpConfiguration();
+			if(commands.ConfigFile!=null)
 			{
+				var json=LoadFile(commands.ConfigFile);
+				config=SumpConfiguration.LoadFromJson(json);
+			}
+			else
+			{
+				//apply command options
+			}
 
-				var commander=new SumpCommander(serial);
-				Console.WriteLine("Resetting device");
-				commander.Reset();
-				if(config.Identify)
+			using(var serial=new Serial(commands.DeviceName, 115200))
+			{
+				var sump=new SumpController(new SumpCommander(serial), commands.Verbose);
+				if(commands.Identify)
 				{
-					Console.WriteLine("Device ID: "+commander.GetID());
+					sump.Sump.Reset();
+					Console.WriteLine(sump.Sump.GetID());
 				}
+				var data=sump.Execute(config);
 
-				//test it out
-
-				var masks=new bool[32];
-				masks[0]=true;
-				commander.SetTriggerMasks(0, masks);
-				var values=new bool[32];
-				commander.SetTriggerValues(0, values);
-				commander.SetTriggerConfigurations(0, new TriggerConfiguration(){Start=true, Level=0});
-				commander.SetReadAndDelayCount(100, 100);
-				var flags=new SumpFlags();
-				flags.Filter=false;
-				flags.InvertedClock=false;
-				flags.ExternalClock=false;
-				commander.SetFlags(flags);
-				commander.SetDivider(commander.Clock/60);
-				commander.Run();
-				var data=commander.GetData(1000, 1000000, 200);
-				Console.WriteLine("done with "+data.Count+" frames");
+				Console.WriteLine("# done with "+data.Count+" frames");
+				var sb=new StringBuilder();
 				foreach(var d in data)
 				{
 					foreach(var b in d)
 					{
 						if(b)
 						{
-							Console.Write("1");
+							sb.Append("1");
 						}else
 						{
-							Console.Write("0");
+							sb.Append("0");
 						}
 					}
-					Console.WriteLine("");
+					sb.AppendLine("");
 				}
-				Console.WriteLine("Json:");
-				Console.WriteLine(data.ToJson());
+				if(commands.DataOut!=null)
+				{
+					if(commands.JsonOut)
+					{
+						WriteFile(commands.DataOut, data.ToJson());
+	          		}
+					else
+					{
+						WriteFile(commands.DataOut, sb.ToString());
+					}
+				}
+				Console.WriteLine(sb.ToString());
+			}
+		}
+		public static string LoadFile(string name)
+		{
+			using(var f=File.Open(name, FileMode.Open))
+			{
+				var reader=new StreamReader(f);
+				return reader.ReadToEnd();
+			}
+		}
+		public static void WriteFile(string name, string content)
+		{
+			using(var f=File.Open(name, FileMode.CreateNew))
+			{
+				var writer=new StreamWriter(f);
+				writer.Write(content);
 			}
 		}
 
