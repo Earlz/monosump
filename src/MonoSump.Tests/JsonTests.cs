@@ -55,6 +55,7 @@ namespace Earlz.MonoSump.Tests
 			string s=@"
 stages: [ 
 {
+/*does this work?*/
   triggers: { 1:1, 5:0 },
   start: true
 },
